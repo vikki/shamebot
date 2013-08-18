@@ -36,14 +36,14 @@ app.post('/', function(req, res) {
 
     client.takeoff();
 
-    if (buildStatus === BUILD_STATUS.BROKEN) {
+    if (buildStatus === BUILD_STATUS.FIXED) {
       console.log("GREAT SUCCESS!");
       client
         .after(5000, function() {
           this.animate('theta20degYaw200deg', 15);
         });
 
-    } else if (buildStatus === BUILD_STATUS.FIXED){
+    } else if (buildStatus === BUILD_STATUS.BROKEN){
       console.log("fail >_<");
       client
         .after(5000, function() {
