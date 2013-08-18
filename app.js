@@ -21,7 +21,7 @@ var BUILD_STATUS = {
   PENDING: 'pending',
 }
 
-app.post('/shamebot', function(req, res) {
+app.post('/', function(req, res) {
     console.log('fo shame');
 
     var buildDets = JSON.parse(req.body);
