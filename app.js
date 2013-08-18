@@ -24,7 +24,7 @@ var BUILD_STATUS = {
 app.post('/shamebot', function(req, res) {
     console.log('fo shame');
 
-    var buildDets = JSON.parse(req.body.data);
+    var buildDets = JSON.parse(req.body);
     console.dir(buildDets);
 
     var buildStatus = buildDets.payload.status_message.toLowerCase();
