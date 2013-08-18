@@ -1,6 +1,7 @@
 var express = require('express'),
     http = require('http'),
-    arDrone = require('ar-drone');
+    arDrone = require('ar-drone'),
+    autonomy = require('ardrone-autonomy');
 
 var app = express();
 var client = arDrone.createClient({ ip: '192.168.43.240'});
@@ -19,6 +20,15 @@ var BUILD_STATUS = {
   FIXED: 0
 };
 
+var CONTRIB = {
+  'github@tom-fitzhenry.me.uk': {x:1,y:1},
+  'ancaleuca2005@gmail.com': {x:-1, y:1},
+  'andrewkerr9000@gmail.com': {x:-1,y: -1},
+  'vikki.read@gmail.com': {x:1, y:-1}
+};
+
+
+
 app.post('/', function(req, res) {
     console.log('fo shame');
 
@@ -33,34 +43,67 @@ app.post('/', function(req, res) {
 
     console.log('build status is ' + buildStatus);
     console.log('build author is ' + buildAuthor.name);
+    console.log('build email is ' + buildAuthor.email);
 
-    client.takeoff();
+
+      
+    
+
+    var animate;
 
     if (buildStatus === BUILD_STATUS.FIXED) {
       console.log("GREAT SUCCESS!");
-      client
-        .after(5000, function() {
-          this.animate('theta20degYaw200deg', 15);
-        });
+      
+        /*client
+          .after(5000, function() {
+            this.animate('theta20degYaw200deg', 15);
+          });
+        };*/
 
     } else if (buildStatus === BUILD_STATUS.BROKEN){
       console.log("fail >_<");
-      client
-        .after(5000, function() {
-          this.animateLeds('doubleMissile', 5, 15);
-        });
+
+
+      var breakingPerson = CONTRIB[buildAuthor.email];
+
+      var mission  = autonomy.createMission()
+                             .takeOff()
+                             .zero()
+                             .altitude(2)
+                             .go(breakingPerson)
+                             .hover(2000)
+                             .go({x:0, y:0})
+                             .hover(1000)
+                             .land();
+
+      mission.run();
+              /*mission.client()
+                     .after(5000, function() {
+                            this.animateLeds('doubleMissile', 5, 15);
+                      });*/
+          
+
     } else {
       console.log("this happened: " + buildStatus);
-      client
-        .after(5000, function() {
-          this.clockwise(0.5);
-      });
+     /* animate = function() {
+        client
+          .after(5000, function() {
+            this.clockwise(0.5);
+        });
+      };*/
+
     }
 
-    client.after(10000, function() {
+//<<<<<<< HEAD
+    //client.after(10000, function() {
+//=======
+    /*client.takeoff(animate);
+
+    client.after(1000, function() {
+>>>>>>> stalk the person who broke the build
       this.stop();
       this.land();
-    });
+    });*/
 
     var content = "boom!";
     res.writeHead(200, { 'Content-Type': 'text/html' });
