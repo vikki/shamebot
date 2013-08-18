@@ -67,7 +67,7 @@ app.post('/', function(req, res) {
       var breakingPerson = CONTRIB[buildAuthor.email];
 
       var mission  = autonomy.createMission()
-                             .takeOff()
+                             .takeoff()
                              .zero()
                              .altitude(2)
                              .go(breakingPerson)
