@@ -5,7 +5,8 @@
   "main": "app.js",
   "dependencies": {
     "ar-drone": "~0.1.0",
-    "express": "~3.3.5"
+    "express": "~3.3.5",
+    "ardrone-autonomy": "git+ssh://git@github.com:eschnou/ardrone-autonomy.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
