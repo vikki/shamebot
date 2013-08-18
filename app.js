@@ -3,7 +3,7 @@ var express = require('express'),
     arDrone = require('ar-drone');
 
 var app = express();
-var client = arDrone.createClient();
+var client = arDrone.createClient({ ip: '192.168.43.240'});
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -57,7 +57,7 @@ app.post('/', function(req, res) {
       });
     }
 
-    client.after(1000, function() {
+    client.after(10000, function() {
       this.stop();
       this.land();
     });
