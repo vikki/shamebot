@@ -20,11 +20,13 @@ var BUILD_STATUS = {
   FIXED: 0
 };
 
+var dist=0.5;
+
 var CONTRIB = {
-  'github@tom-fitzhenry.me.uk': {x:1,y:1},
-  'ancaleuca2005@gmail.com': {x:-1, y:1},
-  'andrewkerr9000@gmail.com': {x:-1,y: -1},
-  'vikki.read@gmail.com': {x:1, y:-1}
+  'github@tom-fitzhenry.me.uk': {x:dist,y:dist, z:2},
+  'ancaleuca2005@gmail.com': {x:-dist, y:dist, z:2},
+  'andrewkerr9000@gmail.com': {x:-dist,y: -dist, z:2},
+  'vikki.read@gmail.com': {x:dist, y:-dist, z:2}
 };
 
 
@@ -74,7 +76,17 @@ app.post('/', function(req, res) {
                              .altitude(2)
                              .go(breakingPerson)
                              .hover(2000)
-                             .go({x:0, y:0})
+                             .task(function(callback) {
+                                 console.log('this is ');
+                                 console.dir(this);
+                                 console.log('mission is ');
+                                 console.log(mission);
+                                 //mission.client().animateLeds('doubleMissile', 5, 15);
+                                 mission.client().animate('flipAhead', 15);
+                                 mission.client().after(5000,callback);
+                               })
+                             .hover(2000)
+                             .go({x:0, y:0, z:2})
                              .hover(1000)
                              .land();
 
