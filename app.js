@@ -16,7 +16,7 @@ app.configure(function(){
 
 var BUILD_STATUS = {
   SUCCESS: 'passed',
-  FAIL: 'failed',
+  FAIL: 'failing',
   ERROR: 'error',
   PENDING: 'pending',
 }
@@ -24,13 +24,13 @@ var BUILD_STATUS = {
 app.post('/', function(req, res) {
     console.log('fo shame');
 
-    var buildDets = JSON.parse(req.body);
-    console.dir(buildDets);
+    console.dir(req.body);
+    var buildDets = JSON.parse(req.body.payload);
 
-    var buildStatus = buildDets.payload.status_message.toLowerCase();
+    var buildStatus = buildDets.status_message.toLowerCase();
     var buildAuthor = {
-       name: buildDets.payload.author_name,
-       email: buildDets.payload.author_email
+       name: buildDets.author_name,
+       email: buildDets.author_email
     };
 
     console.log('build status is ' + buildStatus);
