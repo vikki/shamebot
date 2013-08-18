@@ -1,0 +1,5 @@
+#/bin/sh
+set -eu
+
+curl -vvv -X POST -d @simple.json http://localhost:3000/
+
