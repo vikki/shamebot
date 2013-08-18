@@ -1,0 +1,22 @@
+{
+  "name": "shamebot",
+  "version": "0.0.0",
+  "description": "get a drone to dance/shame someone based on commit status",
+  "main": "app.js",
+  "dependencies": {
+    "ar-drone": "~0.1.0",
+    "express": "~3.3.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vikki/shamebot"
+  },
+  "author": "",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/vikki/shamebot/issues"
+  }
+}
