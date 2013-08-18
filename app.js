@@ -4,7 +4,7 @@ var express = require('express'),
     autonomy = require('ardrone-autonomy');
 
 var app = express();
-var client = arDrone.createClient({ ip: '192.168.43.240'});
+//var client = arDrone.createClient({ ip: '192.168.43.240'});
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -66,7 +66,9 @@ app.post('/', function(req, res) {
 
       var breakingPerson = CONTRIB[buildAuthor.email];
 
-      var mission  = autonomy.createMission()
+      console.log('breaking person is' + breakingPerson);
+
+      var mission  = autonomy.createMission({ ip: '192.168.43.240'})
                              .takeoff()
                              .zero()
                              .altitude(2)
@@ -75,6 +77,8 @@ app.post('/', function(req, res) {
                              .go({x:0, y:0})
                              .hover(1000)
                              .land();
+
+     mission.log('foo.csv');
 
       mission.run();
               /*mission.client()
