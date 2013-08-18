@@ -15,11 +15,9 @@ app.configure(function(){
 });
 
 var BUILD_STATUS = {
-  SUCCESS: 'passed',
-  FAIL: 'failing',
-  ERROR: 'error',
-  PENDING: 'pending',
-}
+  BROKEN: 1,
+  FIXED: 0
+};
 
 app.post('/', function(req, res) {
     console.log('fo shame');
@@ -27,7 +25,7 @@ app.post('/', function(req, res) {
     console.dir(req.body);
     var buildDets = JSON.parse(req.body.payload);
 
-    var buildStatus = buildDets.status_message.toLowerCase();
+    var buildStatus = buildDets.status;
     var buildAuthor = {
        name: buildDets.author_name,
        email: buildDets.author_email
@@ -38,14 +36,14 @@ app.post('/', function(req, res) {
 
     client.takeoff();
 
-    if (buildStatus === BUILD_STATUS.SUCCESS) {
+    if (buildStatus === BUILD_STATUS.BROKEN) {
       console.log("GREAT SUCCESS!");
       client
         .after(5000, function() {
           this.animate('theta20degYaw200deg', 15);
         });
 
-    } else if (buildStatus === BUILD_STATUS.FAIL){
+    } else if (buildStatus === BUILD_STATUS.FIXED){
       console.log("fail >_<");
       client
         .after(5000, function() {
