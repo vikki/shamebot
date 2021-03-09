@@ -4,7 +4,7 @@
   "description": "get a drone to dance/shame someone based on commit status",
   "main": "app.js",
   "dependencies": {
-    "ar-drone": "~0.1.0",
+    "ar-drone": "~0.3.3",
     "express": "~3.3.5",
     "ardrone-autonomy": "git+ssh://git@github.com:eschnou/ardrone-autonomy.git"
   },
